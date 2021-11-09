@@ -31,11 +31,11 @@ variable "cloudfront_access_identity_path" {
 variable "certificate_arn" {
   type        = string
   description = "The ARN of the Certificate to use for the custom domain"
-  default = ""
+  default     = ""
 }
 
 variable "domains" {
   type        = list(string)
   description = "The list of domains to use with this CDN"
-  default = []
+  default     = []
 }
