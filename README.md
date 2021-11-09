@@ -45,9 +45,9 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | The bucket created for this CDN | `string` | n/a | yes |
-| <a name="input_certificate_arn"></a> [certificate\_arn](#input\_certificate\_arn) | The ARN of the Certificate to use for the custom domain | `string` | n/a | yes |
+| <a name="input_certificate_arn"></a> [certificate\_arn](#input\_certificate\_arn) | The ARN of the Certificate to use for the custom domain | `string` | `""` | no |
 | <a name="input_cloudfront_access_identity_path"></a> [cloudfront\_access\_identity\_path](#input\_cloudfront\_access\_identity\_path) | The CloudFront access identity used for the S3 bucket | `string` | n/a | yes |
-| <a name="input_domains"></a> [domains](#input\_domains) | The list of domains to use with this CDN | `list(string)` | n/a | yes |
+| <a name="input_domains"></a> [domains](#input\_domains) | The list of domains to use with this CDN | `list(string)` | `[]` | no |
 | <a name="input_logs_bucket_name"></a> [logs\_bucket\_name](#input\_logs\_bucket\_name) | The logs bucket | `string` | n/a | yes |
 | <a name="input_repository_name"></a> [repository\_name](#input\_repository\_name) | The repository name for this CDN | `string` | n/a | yes |
 | <a name="input_service_name"></a> [service\_name](#input\_service\_name) | The service name for this CDN | `string` | n/a | yes |
@@ -59,7 +59,7 @@ No modules.
 |------|-------------|
 | <a name="output_distribution_id"></a> [distribution\_id](#output\_distribution\_id) | The distribution ID |
 | <a name="output_domain"></a> [domain](#output\_domain) | Output of var.domains[0], prefixed with https:// |
-| <a name="output_origins"></a> [origins](#output\_origins) | Re-output of var.domains |
+| <a name="output_origins"></a> [origins](#output\_origins) | Combined list of var.domains and the cloudfront domain name |
 | <a name="output_repository_name"></a> [repository\_name](#output\_repository\_name) | Re-output of var.repository\_name |
 | <a name="output_service_name"></a> [service\_name](#output\_service\_name) | Re-output of var.service\_name |
 | <a name="output_stage"></a> [stage](#output\_stage) | Re-output of var.stage |
