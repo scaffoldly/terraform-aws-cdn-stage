@@ -1,5 +1,5 @@
 variable "repository_name" {
-  type = string
+  type        = string
   description = "The repository name for this CDN"
 }
 
