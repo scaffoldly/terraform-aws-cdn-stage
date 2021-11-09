@@ -1,3 +1,8 @@
+variable "service_name" {
+  type        = string
+  description = "The service name for this CDN"
+}
+
 variable "repository_name" {
   type        = string
   description = "The repository name for this CDN"
