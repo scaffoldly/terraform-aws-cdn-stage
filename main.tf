@@ -33,10 +33,13 @@ resource "aws_cloudfront_distribution" "distribution" {
     response_page_path = "/index.html"
   }
 
-  viewer_certificate {
-    acm_certificate_arn      = var.certificate_arn
-    minimum_protocol_version = "TLSv1.1_2016"
-    ssl_support_method       = "sni-only"
+  dynamic "viewer_certificate" {
+    for_each = [var.certificate_arn]
+    content {
+      acm_certificate_arn      = viewer_certificate.value
+      minimum_protocol_version = "TLSv1.1_2016"
+      ssl_support_method       = "sni-only"
+    }
   }
 
   default_cache_behavior {
@@ -88,7 +91,7 @@ resource "aws_cloudfront_distribution" "distribution" {
     }
   }
 
-  aliases = var.domains
+  aliases = length(var.domains) > 1 ? var.domains : null
 
   logging_config {
     bucket = data.aws_s3_bucket.logs_bucket.bucket_regional_domain_name
