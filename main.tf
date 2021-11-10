@@ -120,11 +120,14 @@ resource "aws_route53_record" "record" {
   count = length(var.domains)
 
   name    = var.domains[count.index]
-  type    = "CNAME"
+  type    = "A"
   zone_id = lookup(data.aws_route53_zone.zone[var.domains[count.index]], "zone_id", "unknown-zone-id")
-  ttl     = "300"
 
-  records = [aws_cloudfront_distribution.distribution.domain_name]
+  alias {
+    name                   = aws_cloudfront_distribution.distribution.domain_name
+    zone_id                = aws_cloudfront_distribution.distribution.hosted_zone_id
+    evaluate_target_health = true
+  }
 
   provider = aws.dns
 }
