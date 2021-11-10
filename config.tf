@@ -3,7 +3,12 @@ terraform {
 
   required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source                = "hashicorp/aws"
+      configuration_aliases = [aws.dns]
     }
   }
+}
+
+provider "aws" {
+  alias = "dns"
 }

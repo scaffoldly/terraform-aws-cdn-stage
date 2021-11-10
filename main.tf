@@ -6,6 +6,13 @@ data "aws_s3_bucket" "logs_bucket" {
   bucket = var.logs_bucket_name
 }
 
+data "aws_route53_zone" "zone" {
+  for_each = toset(var.domains)
+  name     = each.value
+
+  provider = aws.dns
+}
+
 data "aws_caller_identity" "current" {}
 
 resource "aws_cloudfront_distribution" "distribution" {
@@ -107,4 +114,17 @@ resource "aws_cloudfront_distribution" "distribution" {
   enabled             = true
   is_ipv6_enabled     = true
   wait_for_deployment = false
+}
+
+resource "aws_route53_record" "record" {
+  count = length(var.domains)
+
+  name    = var.domains[count.index]
+  type    = "CNAME"
+  zone_id = lookup(data.aws_route53_zone.zone[var.domains[count.index]], "zone_id", "unknown-zone-id")
+  ttl     = "300"
+
+  records = [aws_cloudfront_distribution.distribution.domain_name]
+
+  provider = aws.dns
 }

@@ -19,7 +19,7 @@ output "stage" {
 }
 
 output "domain" {
-  value       = "https://${length(var.domains) > 1 ? var.domains[0] : aws_cloudfront_distribution.distribution.domain_name}"
+  value       = "https://${length(var.domains) > 0 ? var.domains[0] : aws_cloudfront_distribution.distribution.domain_name}"
   description = "Output of var.domains[0] or the cloudfront domain name, prefixed with https://"
 }
 
