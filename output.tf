@@ -3,14 +3,14 @@ output "distribution_id" {
   description = "The distribution ID"
 }
 
-output "service_name" {
-  value       = var.service_name
-  description = "Re-output of var.service_name"
+output "service_slug" {
+  value       = var.service_slug
+  description = "Re-output of var.service_slug"
 }
 
-output "repository_name" {
+output "service_name" {
   value       = var.repository_name
-  description = "Re-output of var.repository_name"
+  description = "Renamed output of var.repository_name"
 }
 
 output "stage" {

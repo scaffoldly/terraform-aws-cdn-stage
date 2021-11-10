@@ -95,7 +95,7 @@ resource "aws_cloudfront_distribution" "distribution" {
 
   logging_config {
     bucket = data.aws_s3_bucket.logs_bucket.bucket_regional_domain_name
-    prefix = "AWSLogs/${data.aws_caller_identity.current.account_id}/CloudFront/${var.service_name}/${var.stage}/"
+    prefix = "AWSLogs/${data.aws_caller_identity.current.account_id}/CloudFront/${var.service_slug}/${var.stage}/"
   }
 
   enabled             = true

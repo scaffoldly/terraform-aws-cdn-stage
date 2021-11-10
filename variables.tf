@@ -1,6 +1,6 @@
-variable "service_name" {
+variable "service_slug" {
   type        = string
-  description = "The service name for this CDN"
+  description = "The shortened service slug for this CDN"
 }
 
 variable "repository_name" {
