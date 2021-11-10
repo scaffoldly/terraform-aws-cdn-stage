@@ -58,7 +58,7 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_distribution_id"></a> [distribution\_id](#output\_distribution\_id) | The distribution ID |
-| <a name="output_domain"></a> [domain](#output\_domain) | Output of var.domains[0], prefixed with https:// |
+| <a name="output_domain"></a> [domain](#output\_domain) | Output of var.domains[0] or the cloudfront domain name, prefixed with https:// |
 | <a name="output_origins"></a> [origins](#output\_origins) | Combined list of var.domains and the cloudfront domain name |
 | <a name="output_service_name"></a> [service\_name](#output\_service\_name) | Renamed output of var.repository\_name |
 | <a name="output_service_slug"></a> [service\_slug](#output\_service\_slug) | Re-output of var.service\_slug |
