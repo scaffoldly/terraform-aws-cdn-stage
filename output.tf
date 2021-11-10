@@ -20,10 +20,10 @@ output "stage" {
 
 output "domain" {
   value       = "https://${length(var.domains) > 1 ? var.domains[0] : aws_cloudfront_distribution.distribution.domain_name}"
-  description = "Output of var.domains[0], prefixed with https://"
+  description = "Output of var.domains[0] or the cloudfront domain name, prefixed with https://"
 }
 
 output "origins" {
-  value       = concat(var.domains, [aws_cloudfront_distribution.distribution.domain_name])
+  value       = length(var.domains) > 0 ? var.domains : [aws_cloudfront_distribution.distribution.domain_name]
   description = "Combined list of var.domains and the cloudfront domain name"
 }
