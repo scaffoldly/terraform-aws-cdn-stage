@@ -104,7 +104,7 @@ resource "aws_cloudfront_distribution" "distribution" {
     }
   }
 
-  aliases = length(var.domains) > 1 ? var.domains : null
+  aliases = length(var.domains) > 0 ? var.domains : null
 
   logging_config {
     bucket = data.aws_s3_bucket.logs_bucket.bucket_regional_domain_name
