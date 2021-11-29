@@ -7,8 +7,7 @@ data "aws_s3_bucket" "logs_bucket" {
 }
 
 data "aws_route53_zone" "zone" {
-  for_each = toset(var.domains)
-  name     = each.value
+  name = var.root_domain
 
   provider = aws.dns
 }
@@ -121,7 +120,7 @@ resource "aws_route53_record" "record" {
 
   name    = var.domains[count.index]
   type    = "A"
-  zone_id = lookup(data.aws_route53_zone.zone[var.domains[count.index]], "zone_id", "unknown-zone-id")
+  zone_id = data.aws_route53_zone.zone.zone_id
 
   alias {
     name                   = aws_cloudfront_distribution.distribution.domain_name

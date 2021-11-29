@@ -34,6 +34,11 @@ variable "certificate_arn" {
   default     = ""
 }
 
+variable "root_domain" {
+  type        = string
+  description = "The root domain"
+}
+
 variable "domains" {
   type        = list(string)
   description = "The list of domains to use with this CDN"
