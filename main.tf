@@ -40,7 +40,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   dynamic "viewer_certificate" {
-    for_each = var.certificate_arn != "" ? [1] : []
+    for_each = length(var.domains) > 0 ? [1] : []
     content {
       acm_certificate_arn      = var.certificate_arn
       minimum_protocol_version = "TLSv1.1_2016"
@@ -49,7 +49,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   dynamic "viewer_certificate" {
-    for_each = var.certificate_arn != "" ? [] : [1]
+    for_each = length(var.domains) > 0 ? [] : [1]
     content {
       cloudfront_default_certificate = true
     }

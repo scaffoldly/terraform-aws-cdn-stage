@@ -41,6 +41,6 @@ variable "root_domain" {
 
 variable "domains" {
   type        = list(string)
-  description = "The list of domains to use with this CDN"
+  description = "The domains for this CDN"
   default     = []
 }
