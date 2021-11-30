@@ -44,7 +44,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   dynamic "viewer_certificate" {
-    for_each = var.certificate_arn != "" ? [1] : []
+    for_each = length(var.cdn_domains) > 0 ? [1] : []
     content {
       acm_certificate_arn      = var.certificate_arn
       minimum_protocol_version = "TLSv1.1_2016"
@@ -53,7 +53,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   dynamic "viewer_certificate" {
-    for_each = var.certificate_arn != "" ? [] : [1]
+    for_each = length(var.cdn_domains) > 0 ? [] : [1]
     content {
       cloudfront_default_certificate = true
     }
@@ -107,7 +107,7 @@ resource "aws_cloudfront_distribution" "distribution" {
     }
   }
 
-  aliases = var.certificate_arn != "" ? [local.domain] : null
+  aliases = length(var.cdn_domains) > 0 ? [local.domain] : null
 
   logging_config {
     bucket = data.aws_s3_bucket.logs_bucket.bucket_regional_domain_name
@@ -120,7 +120,7 @@ resource "aws_cloudfront_distribution" "distribution" {
 }
 
 resource "aws_route53_record" "record" {
-  count = var.certificate_arn != "" ? 1 : 0
+  count = length(var.cdn_domains) > 0 ? 1 : 0
 
   name    = local.domain
   type    = "A"

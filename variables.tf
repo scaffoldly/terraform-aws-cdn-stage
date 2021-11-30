@@ -50,3 +50,9 @@ variable "subdomain_suffix" {
   description = "Append a subdomain suffix"
   default     = ""
 }
+
+variable "cdn_domains" {
+  type        = list(string)
+  description = "The list of CDN domains"
+  default     = []
+}
