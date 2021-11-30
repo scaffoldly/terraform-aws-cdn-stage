@@ -50,20 +50,21 @@ No modules.
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | The bucket created for this CDN | `string` | n/a | yes |
 | <a name="input_certificate_arn"></a> [certificate\_arn](#input\_certificate\_arn) | The ARN of the Certificate to use for the custom domain | `string` | `""` | no |
 | <a name="input_cloudfront_access_identity_path"></a> [cloudfront\_access\_identity\_path](#input\_cloudfront\_access\_identity\_path) | The CloudFront access identity used for the S3 bucket | `string` | n/a | yes |
-| <a name="input_domains"></a> [domains](#input\_domains) | The domains for this CDN | `list(string)` | `[]` | no |
 | <a name="input_logs_bucket_name"></a> [logs\_bucket\_name](#input\_logs\_bucket\_name) | The logs bucket | `string` | n/a | yes |
 | <a name="input_repository_name"></a> [repository\_name](#input\_repository\_name) | The repository name for this CDN | `string` | n/a | yes |
 | <a name="input_root_domain"></a> [root\_domain](#input\_root\_domain) | The root domain | `string` | n/a | yes |
 | <a name="input_service_slug"></a> [service\_slug](#input\_service\_slug) | The shortened service slug for this CDN | `string` | n/a | yes |
 | <a name="input_stage"></a> [stage](#input\_stage) | The stage (e.g. nonlive, live) | `string` | n/a | yes |
+| <a name="input_subdomain"></a> [subdomain](#input\_subdomain) | The (optional) subdomain of var.root\_domain | `string` | `""` | no |
+| <a name="input_subdomain_suffix"></a> [subdomain\_suffix](#input\_subdomain\_suffix) | Append a subdomain suffix | `string` | `""` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
 | <a name="output_distribution_id"></a> [distribution\_id](#output\_distribution\_id) | The distribution ID |
-| <a name="output_domain"></a> [domain](#output\_domain) | Output of var.domains[0] or the cloudfront domain name, prefixed with https:// |
-| <a name="output_origins"></a> [origins](#output\_origins) | Combined list of var.domains and the cloudfront domain name |
+| <a name="output_domain"></a> [domain](#output\_domain) | Output of the domain or the cloudfront domain name, prefixed with https:// |
+| <a name="output_origins"></a> [origins](#output\_origins) | Output of the domain or the cloudfront domain name |
 | <a name="output_service_name"></a> [service\_name](#output\_service\_name) | Renamed output of var.repository\_name |
 | <a name="output_service_slug"></a> [service\_slug](#output\_service\_slug) | Re-output of var.service\_slug |
 | <a name="output_stage"></a> [stage](#output\_stage) | Re-output of var.stage |
