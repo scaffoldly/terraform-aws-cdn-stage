@@ -1,5 +1,5 @@
 locals {
-  domain = var.subdomain != "" ? (var.subdomain_suffix ? "${var.subdomain}-${var.subdomain_suffix}.${var.root_domain}" : "${var.subdomain}.${var.root_domain}") : (var.subdomain_suffix ? "${var.subdomain_suffix}.${var.root_domain}" : var.root_domain)
+  domain = var.subdomain != "" ? (var.subdomain_suffix != "" ? "${var.subdomain}-${var.subdomain_suffix}.${var.root_domain}" : "${var.subdomain}.${var.root_domain}") : (var.subdomain_suffix != "" ? "${var.subdomain_suffix}.${var.root_domain}" : var.root_domain)
 }
 
 data "aws_s3_bucket" "bucket" {
