@@ -1,3 +1,7 @@
+locals {
+  domain = var.subdomain != "" ? (var.subdomain_suffix ? "${var.subdomain}-${var.subdomain_suffix}.${var.root_domain}" : "${var.subdomain}.${var.root_domain}") : (var.subdomain_suffix ? "${var.subdomain_suffix}.${var.root_domain}" : var.root_domain)
+}
+
 data "aws_s3_bucket" "bucket" {
   bucket = var.bucket_name
 }
@@ -40,7 +44,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   dynamic "viewer_certificate" {
-    for_each = length(var.domains) > 0 ? [1] : []
+    for_each = var.certificate_arn != "" ? [1] : []
     content {
       acm_certificate_arn      = var.certificate_arn
       minimum_protocol_version = "TLSv1.1_2016"
@@ -49,7 +53,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   dynamic "viewer_certificate" {
-    for_each = length(var.domains) > 0 ? [] : [1]
+    for_each = var.certificate_arn != "" ? [] : [1]
     content {
       cloudfront_default_certificate = true
     }
@@ -103,7 +107,7 @@ resource "aws_cloudfront_distribution" "distribution" {
     }
   }
 
-  aliases = length(var.domains) > 0 ? var.domains : null
+  aliases = var.certificate_arn != "" ? [local.domain] : null
 
   logging_config {
     bucket = data.aws_s3_bucket.logs_bucket.bucket_regional_domain_name
@@ -116,9 +120,9 @@ resource "aws_cloudfront_distribution" "distribution" {
 }
 
 resource "aws_route53_record" "record" {
-  count = length(var.domains)
+  count = var.certificate_arn != "" ? 1 : 0
 
-  name    = var.domains[count.index]
+  name    = local.domain
   type    = "A"
   zone_id = data.aws_route53_zone.zone.zone_id
 

@@ -39,8 +39,14 @@ variable "root_domain" {
   description = "The root domain"
 }
 
-variable "domains" {
-  type        = list(string)
-  description = "The domains for this CDN"
-  default     = []
+variable "subdomain" {
+  type        = string
+  description = "The (optional) subdomain of var.root_domain"
+  default     = ""
+}
+
+variable "subdomain_suffix" {
+  type        = string
+  description = "Append a subdomain suffix"
+  default     = ""
 }
