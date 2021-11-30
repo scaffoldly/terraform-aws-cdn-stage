@@ -50,7 +50,7 @@ No modules.
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | The bucket created for this CDN | `string` | n/a | yes |
 | <a name="input_certificate_arn"></a> [certificate\_arn](#input\_certificate\_arn) | The ARN of the Certificate to use for the custom domain | `string` | `""` | no |
 | <a name="input_cloudfront_access_identity_path"></a> [cloudfront\_access\_identity\_path](#input\_cloudfront\_access\_identity\_path) | The CloudFront access identity used for the S3 bucket | `string` | n/a | yes |
-| <a name="input_domains"></a> [domains](#input\_domains) | The list of domains to use with this CDN | `list(string)` | `[]` | no |
+| <a name="input_domains"></a> [domains](#input\_domains) | The domains for this CDN | `list(string)` | `[]` | no |
 | <a name="input_logs_bucket_name"></a> [logs\_bucket\_name](#input\_logs\_bucket\_name) | The logs bucket | `string` | n/a | yes |
 | <a name="input_repository_name"></a> [repository\_name](#input\_repository\_name) | The repository name for this CDN | `string` | n/a | yes |
 | <a name="input_root_domain"></a> [root\_domain](#input\_root\_domain) | The root domain | `string` | n/a | yes |
