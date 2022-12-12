@@ -80,7 +80,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   ordered_cache_behavior {
-    path_pattern = "index.html"
+    path_pattern = "*.html"
 
     min_ttl     = 0
     default_ttl = 0
@@ -90,7 +90,29 @@ resource "aws_cloudfront_distribution" "distribution" {
     cached_methods         = ["GET", "HEAD"]
     target_origin_id       = "${var.repository_name}-${var.stage}"
     viewer_protocol_policy = "redirect-to-https"
-    compress               = true
+    compress               = false
+
+    forwarded_values {
+      query_string = false
+
+      cookies {
+        forward = "none"
+      }
+    }
+  }
+
+  ordered_cache_behavior {
+    path_pattern = "*.json"
+
+    min_ttl     = 0
+    default_ttl = 0
+    max_ttl     = 0
+
+    allowed_methods        = ["GET", "HEAD"]
+    cached_methods         = ["GET", "HEAD"]
+    target_origin_id       = "${var.repository_name}-${var.stage}"
+    viewer_protocol_policy = "redirect-to-https"
+    compress               = false
 
     forwarded_values {
       query_string = false
