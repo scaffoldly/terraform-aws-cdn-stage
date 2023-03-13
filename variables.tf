@@ -36,6 +36,7 @@ variable "certificate_arn" {
 
 variable "root_domain" {
   type        = string
+  default     = ""
   description = "The root domain"
 }
 

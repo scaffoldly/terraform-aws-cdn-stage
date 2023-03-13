@@ -11,6 +11,8 @@ data "aws_s3_bucket" "logs_bucket" {
 }
 
 data "aws_route53_zone" "zone" {
+  count = var.root_domain != "" ? 1 : 0
+
   name = var.root_domain
 
   provider = aws.dns
@@ -164,11 +166,11 @@ resource "aws_cloudfront_distribution" "distribution" {
 }
 
 resource "aws_route53_record" "record" {
-  count = length(var.cdn_domains) > 0 ? 1 : 0
+  count = var.root_domain != "" && length(var.cdn_domains) > 0 ? 1 : 0
 
   name    = local.domain
   type    = "A"
-  zone_id = data.aws_route53_zone.zone.zone_id
+  zone_id = data.aws_route53_zone.zone[0].zone_id
 
   alias {
     name                   = aws_cloudfront_distribution.distribution.domain_name
