@@ -53,7 +53,7 @@ No modules.
 | <a name="input_cloudfront_access_identity_path"></a> [cloudfront\_access\_identity\_path](#input\_cloudfront\_access\_identity\_path) | The CloudFront access identity used for the S3 bucket | `string` | n/a | yes |
 | <a name="input_logs_bucket_name"></a> [logs\_bucket\_name](#input\_logs\_bucket\_name) | The logs bucket | `string` | n/a | yes |
 | <a name="input_repository_name"></a> [repository\_name](#input\_repository\_name) | The repository name for this CDN | `string` | n/a | yes |
-| <a name="input_root_domain"></a> [root\_domain](#input\_root\_domain) | The root domain | `string` | n/a | yes |
+| <a name="input_root_domain"></a> [root\_domain](#input\_root\_domain) | The root domain | `string` | `""` | no |
 | <a name="input_service_slug"></a> [service\_slug](#input\_service\_slug) | The shortened service slug for this CDN | `string` | n/a | yes |
 | <a name="input_stage"></a> [stage](#input\_stage) | The stage (e.g. nonlive, live) | `string` | n/a | yes |
 | <a name="input_subdomain"></a> [subdomain](#input\_subdomain) | The (optional) subdomain of var.root\_domain | `string` | `""` | no |
