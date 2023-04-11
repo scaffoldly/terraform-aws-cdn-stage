@@ -57,3 +57,8 @@ variable "cdn_domains" {
   description = "The list of CDN domains"
   default     = []
 }
+
+variable "disable_cache_patterns" {
+  type    = list(string)
+  default = ["/", "*.html", "*.json"]
+}
