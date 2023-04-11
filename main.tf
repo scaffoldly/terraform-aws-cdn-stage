@@ -84,8 +84,8 @@ resource "aws_cloudfront_distribution" "distribution" {
     dynamic "lambda_function_association" {
       for_each = var.function_associations
       content {
-        event_type = each.key
-        lambda_arn = each.value.function_arn
+        event_type = lambda_function_association.key
+        lambda_arn = lambda_function_association.value.function_arn
       }
     }
   }
