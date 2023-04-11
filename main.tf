@@ -91,7 +91,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   dynamic "ordered_cache_behavior" {
-    for_each = toset(local.disable_cache_patterns)
+    for_each = local.disable_cache_patterns
     content {
       path_pattern = each.key
 
