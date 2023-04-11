@@ -1,5 +1,6 @@
 locals {
-  domain = var.subdomain != "" ? (var.subdomain_suffix != "" ? "${var.subdomain}-${var.subdomain_suffix}.${var.root_domain}" : "${var.subdomain}.${var.root_domain}") : (var.subdomain_suffix != "" ? "${var.subdomain_suffix}.${var.root_domain}" : var.root_domain)
+  domain                 = var.subdomain != "" ? (var.subdomain_suffix != "" ? "${var.subdomain}-${var.subdomain_suffix}.${var.root_domain}" : "${var.subdomain}.${var.root_domain}") : (var.subdomain_suffix != "" ? "${var.subdomain_suffix}.${var.root_domain}" : var.root_domain)
+  disable_cache_patterns = length(var.disable_cache_patterns) != 0 ? var.disable_cache_patterns : ["/", "*.html", "*.json"]
 }
 
 data "aws_s3_bucket" "bucket" {
@@ -90,7 +91,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   dynamic "ordered_cache_behavior" {
-    for_each = toset(var.disable_cache_patterns)
+    for_each = toset(local.disable_cache_patterns)
     content {
       path_pattern = each.value
 

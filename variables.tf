@@ -59,13 +59,15 @@ variable "cdn_domains" {
 }
 
 variable "disable_cache_patterns" {
-  type    = list(string)
-  default = ["/", "*.html", "*.json"]
+  type        = list(string)
+  default     = []
+  description = "Defaults to ['/','*.html','*.json']"
 }
 
 variable "function_associations" {
   type = map(object({
     function_arn = string
   }))
-  default = {}
+  default     = {}
+  description = "Allowed keys: viewer-request, origin-request, viewer-response, origin-response"
 }
