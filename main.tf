@@ -79,6 +79,14 @@ resource "aws_cloudfront_distribution" "distribution" {
         forward = "none"
       }
     }
+
+    dynamic "lambda_function_association" {
+      for_each = var.function_associations
+      content {
+        event_type = each.key
+        lambda_arn = each.value.function_arn
+      }
+    }
   }
 
   dynamic "ordered_cache_behavior" {

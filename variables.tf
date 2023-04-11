@@ -62,3 +62,10 @@ variable "disable_cache_patterns" {
   type    = list(string)
   default = ["/", "*.html", "*.json"]
 }
+
+variable "function_associations" {
+  type = map(object({
+    function_arn = string
+  }))
+  default = {}
+}
