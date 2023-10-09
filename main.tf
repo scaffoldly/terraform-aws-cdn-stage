@@ -131,6 +131,13 @@ resource "aws_cloudfront_distribution" "distribution" {
   enabled             = true
   is_ipv6_enabled     = true
   wait_for_deployment = false
+
+  lifecycle {
+    ignore_changes = [
+      // allow out-of-band updates to lambda_function_association
+      default_cache_behavior[0].lambda_function_association,
+    ]
+  }
 }
 
 resource "aws_route53_record" "record" {
