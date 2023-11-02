@@ -1,6 +1,7 @@
 locals {
   domain                 = var.subdomain != "" ? (var.subdomain_suffix != "" ? "${var.subdomain}-${var.subdomain_suffix}.${var.root_domain}" : "${var.subdomain}.${var.root_domain}") : (var.subdomain_suffix != "" ? "${var.subdomain_suffix}.${var.root_domain}" : var.root_domain)
   disable_cache_patterns = length(var.disable_cache_patterns) != 0 ? var.disable_cache_patterns : ["/", "*.html", "*.json"]
+  aliases                = length(var.cdn_domains) > 0 ? concat([local.domain], formatlist("%s.${local.domain}", var.additional_subdomains)) : null
 }
 
 data "aws_s3_bucket" "bucket" {
@@ -121,7 +122,7 @@ resource "aws_cloudfront_distribution" "distribution" {
     }
   }
 
-  aliases = length(var.cdn_domains) > 0 ? [local.domain] : null
+  aliases = local.aliases
 
   logging_config {
     bucket = data.aws_s3_bucket.logs_bucket.bucket_regional_domain_name
@@ -146,6 +147,24 @@ resource "aws_route53_record" "record" {
   name    = local.domain
   type    = "A"
   zone_id = data.aws_route53_zone.zone[0].zone_id
+
+  alias {
+    name                   = aws_cloudfront_distribution.distribution.domain_name
+    zone_id                = aws_cloudfront_distribution.distribution.hosted_zone_id
+    evaluate_target_health = true
+  }
+
+  provider = aws.dns
+}
+
+resource "aws_route53_record" "subdomain_record" {
+  count = var.root_domain != "" && length(var.additional_subdomains) > 0 ? length(var.additional_subdomains) : 0
+
+  name    = "${var.additional_subdomains[count.index]}.${local.domain}"
+  type    = "A"
+  zone_id = data.aws_route53_zone.zone[0].zone_id
+
+  allow_overwrite = true
 
   alias {
     name                   = aws_cloudfront_distribution.distribution.domain_name

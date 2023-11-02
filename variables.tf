@@ -46,6 +46,12 @@ variable "subdomain" {
   default     = ""
 }
 
+variable "additional_subdomains" {
+  type        = list(string)
+  description = "The (optional) subdomains of var.root_domain"
+  default     = []
+}
+
 variable "subdomain_suffix" {
   type        = string
   description = "Append a subdomain suffix"
