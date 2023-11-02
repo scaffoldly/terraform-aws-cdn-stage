@@ -47,7 +47,7 @@ variable "subdomain" {
 }
 
 variable "additional_subdomains" {
-  type        = string
+  type        = list(string)
   description = "The (optional) subdomains of var.root_domain"
   default     = []
 }
