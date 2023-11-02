@@ -38,6 +38,7 @@ No modules.
 |------|------|
 | [aws_cloudfront_distribution.distribution](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution) | resource |
 | [aws_route53_record.record](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [aws_route53_record.subdomain_record](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_route53_zone.zone](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
 | [aws_s3_bucket.bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/s3_bucket) | data source |
@@ -47,6 +48,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_additional_subdomains"></a> [additional\_subdomains](#input\_additional\_subdomains) | The (optional) subdomains of var.root\_domain | `list(string)` | `[]` | no |
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | The bucket created for this CDN | `string` | n/a | yes |
 | <a name="input_cdn_domains"></a> [cdn\_domains](#input\_cdn\_domains) | The list of CDN domains | `list(string)` | `[]` | no |
 | <a name="input_certificate_arn"></a> [certificate\_arn](#input\_certificate\_arn) | The ARN of the Certificate to use for the custom domain | `string` | `""` | no |
