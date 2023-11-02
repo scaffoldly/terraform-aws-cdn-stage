@@ -1,7 +1,7 @@
 locals {
   domain                 = var.subdomain != "" ? (var.subdomain_suffix != "" ? "${var.subdomain}-${var.subdomain_suffix}.${var.root_domain}" : "${var.subdomain}.${var.root_domain}") : (var.subdomain_suffix != "" ? "${var.subdomain_suffix}.${var.root_domain}" : var.root_domain)
   disable_cache_patterns = length(var.disable_cache_patterns) != 0 ? var.disable_cache_patterns : ["/", "*.html", "*.json"]
-  aliases                = length(var.cdn_domains) > 0 ? concat([local.domain], formatlist("%s.${local.domain}", var.additional_subdomains)) : null
+  aliases                = length(var.cdn_domains) > 0 ? concat([local.domain], formatlist("%s.${local.domain}", formatlist("%s%s", var.additional_subdomains, var.subdomain_suffix != "" ? "-${var.subdomain_suffix}" : ""))) : null
 }
 
 data "aws_s3_bucket" "bucket" {
