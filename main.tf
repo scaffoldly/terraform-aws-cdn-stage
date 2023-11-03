@@ -158,9 +158,10 @@ resource "aws_route53_record" "record" {
 }
 
 resource "aws_route53_record" "subdomain_record" {
-  count = var.root_domain != "" && length(var.additional_subdomains) > 0 ? length(var.additional_subdomains) : 0
+  // exclude the root domain (first element)
+  count = var.root_domain != "" ? length(local.aliases)-1 : 0
 
-  name    = "${var.additional_subdomains[count.index]}.${local.domain}"
+  name    = "${local.aliases[count.index+1]}"
   type    = "A"
   zone_id = data.aws_route53_zone.zone[0].zone_id
 
